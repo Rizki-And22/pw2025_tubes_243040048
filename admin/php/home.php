@@ -1,13 +1,16 @@
-<?php include 'database.php';
-session_start();
+<?php
+include 'database.php';
 
-if (!isset($_SESSION['username'])) {
-    header("Location: index.php");
-    exit;
+// Ambil data total dari database
+$manajemen_event = select("SELECT COUNT(*) as total FROM manajemen_event")[0]['total'] ?? 0;
+$manajemen_tiket = select("SELECT COUNT(*) as total FROM manajemen_tiket")[0]['total'] ?? 0;
+$penjualan_tiket = select("SELECT COUNT(*) as total FROM penjualan_tiket")[0]['total'] ?? 0;
+
+// Mulai session jika belum
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="id">
@@ -15,18 +18,26 @@ if (!isset($_SESSION['username'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lana Fest!</title>
+    <title>Kuliner Khas Sunda</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/data.css">
     <style>
         body {
-            background-color: white;
+            background-color: #f8f9fa;
         }
+
+        /* .dropdown-menu {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            z-index: 1050 !important;
+
+        } */
 
         .sidebar {
             min-width: 220px;
-            background-color: #6a0dad;
+            background: linear-gradient(180deg, #6a0dad 80%, #8f5fe8 100%);
             color: #fff;
             min-height: 100vh;
         }
@@ -34,132 +45,51 @@ if (!isset($_SESSION['username'])) {
         .sidebar .nav-link {
             color: #e9ecef;
             font-weight: 500;
+            border-radius: 8px;
+            margin-bottom: 4px;
         }
 
         .sidebar .nav-link.active,
         .sidebar .nav-link:hover {
-            background: #ffffff;
+            background: #fff;
             color: #6a0dad;
-            ;
         }
 
         .navbar {
+            background-color: #fff;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-            background-color: rgb(145, 143, 143);
         }
-
-
-        .home-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 60px 40px;
-            background: #fff;
-            border-radius: 18px;
-            box-shadow: 0 8px 32px rgba(106, 13, 173, 0.15);
-            margin-top: 40px;
-        }
-
-        .home-content .kiri {
-            max-width: 55%;
-            color: #fff;
-        }
-
-        .home-content h1 {
-            font-size: 48px;
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: 1px;
-            color: #6a0dad;
-            text-shadow: 4px 8px 24px rgba(106, 13, 173, 0.25), 2px 4px 16px rgba(0, 0, 0, 0.18);
-        }
-
-        .home-content h3 {
-            font-size: 32px;
-            font-weight: 700;
-            color: #A9A9A9;
-            margin-bottom: 18px;
-            text-shadow: 2px 4px 16px rgba(106, 13, 173, 0.18), 1px 2px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .home-content p {
-            font-size: 17px;
-            margin: 18px 0 28px;
-            text-align: justify;
-            color: #333;
-            line-height: 1.7;
-        }
-
-        .home-content strong {
-            color: #A9A9A9;
-        }
-
-        .home-content img {
-            max-width: 320px;
-            min-width: 200px;
-            height: auto;
-            border-radius: 18px;
-            box-shadow: 0 8px 32px rgba(106, 13, 173, 0.18), 0 2px 8px rgba(0, 0, 0, 0.08);
-            border: 6px solid #fff;
-            margin-left: 40px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: block;
-            background: none;
-        }
-
-        .home-content img:hover {
-            transform: scale(1.05) rotate(-2deg);
-            box-shadow: 0 16px 48px rgba(106, 13, 173, 0.25), 0 4px 16px rgba(0, 0, 0, 0.12);
-        }
-
-        .home-content .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-
-
-
-        @media (max-width: 900px) {
-            .home-content {
-                flex-direction: column;
-                padding: 30px 10px;
-                text-align: center;
-            }
-
-            .home-content .kiri {
-                max-width: 100%;
-            }
-
-            .home-content img {
-                margin-top: 24px;
-                max-width: 220px;
-            }
-        }
-
-
 
         .avatar {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             object-fit: cover;
             margin-right: 8px;
+            border: 2px solid #6a0dad;
         }
 
         .btn-custom {
-            min-width: 70px;
+            min-width: 100px;
         }
 
-        .table-striped>tbody>tr:nth-of-type(odd) {
-            background-color: #f3f6f9;
+        .table thead th {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .table td,
+        .table th {
+            vertical-align: middle;
         }
     </style>
 </head>
 
+
 <body>
     <div class="d-flex">
+
+
         <!-- Sidebar -->
         <nav class="sidebar d-flex flex-column p-3">
             <a class="navbar-brand mb-4 fs-4 fw-bold text-white" href="home.php">
@@ -176,10 +106,12 @@ if (!isset($_SESSION['username'])) {
                 </li>
                 <li><a href="manajemen tiket.php" class="nav-link"><i class="bi bi-ticket-perforated-fill"></i>Manajemen Tiket</a></li>
 
-                <li><a href="manajemen pembeli.php" class="nav-link"><i class="bi bi-bag-check-fill me-2"></i>Manajemen Pembeli</a></li>
+                <li><a href="manajemen pembelian.php" class="nav-link"><i class="bi bi-bag-check-fill me-2l"></i>Manajemen Pembeli</a></li>
 
             </ul>
         </nav>
+
+        <!-- End Sidebar -->
 
         <!-- Main Content -->
         <div class="flex-grow-1 d-flex flex-column min-vh-100">
@@ -187,9 +119,10 @@ if (!isset($_SESSION['username'])) {
             <nav class="navbar navbar-expand navbar-light border-bottom">
                 <div class="container-fluid justify-content-end">
                     <div class="dropdown">
-                        <button class="btn btn-light d-flex align-items-center dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://ui-avatars.com/api/?name=<?= urlencode($_SESSION['username'][0] ?? 'U') ?>&background=198754&color=fff" class="avatar" alt="avatar">
-                            <span class="fw-semibold"><?= htmlspecialchars($_SESSION['username'] ?? 'User'); ?></span>
+                        <img src="https://ui-avatars.com/api/?name=<?= urlencode($_SESSION['username'][0] ?? 'U') ?>&background=198754&color=fff" class="avatar" alt="avatar">
+                        <span class="me-2 fw-semibold"><?= htmlspecialchars($_SES['username'] ?? 'User'); ?></span>
+                        <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            ▼
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="#">Profile</a></li>
@@ -199,40 +132,55 @@ if (!isset($_SESSION['username'])) {
                                     <button type="submit" name="logout" class="dropdown-item">Logout</button>
                                 </form>
                             </li>
-                            <?php
-                            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
-                                session_start();
-                                session_unset();
-                                session_destroy();
-                                header("Location:../../PW2025_TUBES_243040048/index.php");
-                                exit;
-                            }
-                            ?>
+
                         </ul>
                     </div>
                 </div>
             </nav>
+            <!-- End Topbar -->
 
-            <!-- Content -->
-            <div class="home-content">
-                <div class="container">
-                    <div class="kiri">
-                        <h1>Hallo Sobat Lana!</h1>
-                        <h3>Lana Fest!</h3>
-                        <p>
-                            Selamat datang di halaman admin Lana Fest! Di sini kamu bisa mengelola berbagai aspek dari festival ini, mulai dari manajemen event, tiket, hingga pengguna. Pastikan untuk selalu memperbarui informasi dan menjaga keamanan data.
-                        </p>
-                        <p>
-                            Jika ada pertanyaan atau butuh bantuan, jangan ragu untuk menghubungi tim support kami. Selamat beraktivitas!
-                        </p>
-                        <p>
-                            <strong>Catatan:</strong> Pastikan untuk selalu logout setelah selesai mengelola data untuk menjaga keamanan akun Anda.
-                        </p>
+            <!-- Dashboard Cards -->
+            <div class="container py-4">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card border-success shadow-sm">
+                            <div class="card-body d-flex align-items-center">
+                                <i class="bi bi-basket display-5 text-success me-3"></i>
+                                <div>
+                                    <h5 class="card-title mb-1">Total Event</h5>
+                                    <h3 class="mb-0"><?= $manajemen_event ?></h3>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <img src="../img/logo.png" />
+                    <div class="col-md-4">
+                        <div class="card border-primary shadow-sm">
+                            <div class="card-body d-flex align-items-center">
+                                <i class="bi bi-list-ul display-5 text-primary me-3"></i>
+                                <div>
+                                    <h5 class="card-title mb-1">Total Tiket</h5>
+                                    <h3 class="mb-0"><?= $manajemen_tiket ?></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-warning shadow-sm">
+                            <div class="card-body d-flex align-items-center">
+                                <i class="bi bi-person-check display-5 text-warning me-3"></i>
+                                <div>
+                                    <h5 class="card-title mb-1">Total Penjualan</h5>
+                                    <h3 class="mb-0"><?= $penjualan_tiket ?></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <!-- End Dashboard Cards -->
+
         </div>
+        <!-- End Main Content -->
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

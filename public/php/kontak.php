@@ -64,7 +64,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="../PW2025_TUBES_243040048/admin/img/logo.png" alt="Logo" class="me-2" style="height:44px;">
+                <img src="../../admin/img/logo.png" alt="Logo" class="me-2" style="height:44px;">
                 LANA FEST
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
