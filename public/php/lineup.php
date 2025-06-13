@@ -207,7 +207,7 @@ $db->close();
                                             <tr>
                                                 <td><?= $i + 1 ?></td>
                                                 <td><?= htmlspecialchars($band['name']) ?></td>
-                                                <td><img src="uploads/lineup/<?= $band['foto'] ?>" alt="" width="30%"></td>
+                                                <td><img src="../../uploads/lineup/<?= $band['foto'] ?>" alt="" width="30%"></td>
                                                 <td><?= htmlspecialchars($band['time']) ?></td>
                                                 <td><?= htmlspecialchars($band['stage']) ?></td>
                                             </tr>

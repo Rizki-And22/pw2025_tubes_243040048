@@ -149,7 +149,7 @@ if (isset($_POST['ubah'])) {
                                     <label for="Nama_Tiket" class="form-label">Nama Tiket</label>
                                     <input type="text" class="form-control" id="nama_Tiket" name="Nama_Tiket" placeholder="Masukkan Nama Tiket" value="<?= $manajemen_tiket['Nama_Tiket'] ?>" required>
                                 </div>
-                                 <div class="mb-3">
+                                <div class="mb-3">
                                     <label for="Nama_Tiket" class="form-label">Nama Tiket</label>
                                     <input type="text" class="form-control" id="deskripsi" name="deskripsi" placeholder="Masukan Deskripsi" value="<?= $manajemen_tiket['deskripsi'] ?>" required>
                                 </div>
@@ -167,14 +167,14 @@ if (isset($_POST['ubah'])) {
                                 </div>
                                 <div class="mb-3">
                                     <label for="Tanggal_Berlaku" class="form-label">Tanggal Berlaku</label>
-                                    <input type="date" class="form-control" id="Tanggal_Berlaku" name="Tanggal_Berlaku" placeholder="Masukkan Tanggal" value="<?= $manajemen_tiket['Tanggal_Berlaku'] ?>" required>
+                                    <input type="date" class="form-control" id="Tanggal_Berlaku" name="Tanggal_Berlaku" placeholder="Masukkan Tanggal" value="<?= date('Y/m/d', strtotime($manajemen_tiket['Tanggal_Berlaku'])) ?>" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="Status" class="form-label">Status</label>
                                     <select class="form-select" id="Status" name="Status" value="<?= $manajemen_tiket['Status'] ?>" required>>
                                         <option value="">Pilih Status</option>
-                                        <option value="tersedia">Tersedia</option>
-                                        <option value="terjual">Terjual</option>
+                                        <option value="tersedia" <?= $manajemen_tiket['Status'] == 'tersedia' ? 'selected' : '' ?>>Tersedia</option>
+                                        <option value="terjual" <?= $manajemen_tiket['Status'] == 'terjual' ? 'selected' : '' ?>>Terjual</option>
                                     </select>
                                 </div>
 

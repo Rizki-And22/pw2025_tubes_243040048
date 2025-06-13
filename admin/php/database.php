@@ -46,6 +46,47 @@ function ubah_data_tiket($data)
     return mysqli_affected_rows($db);
 }
 
+// ubah data lineup
+function ubah_data_lineup($data)
+{
+    global $db;
+    $ID_Lineup = mysqli_real_escape_string($db, $data['ID_Lineup']);
+    $band = mysqli_real_escape_string($db, $data['nama_band']);
+    $waktu = mysqli_real_escape_string($db, $data['waktu']);
+    $stage = mysqli_real_escape_string($db, $data['stage']);
+    $ID_Event = mysqli_real_escape_string($db, $data['genre']);
+
+    $foto = $_FILES['foto'];
+    $foto_nama_baru = null;
+
+    if (!empty($foto['name'])) {
+        $target_dir = "../../uploads/lineup/";
+        $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        $file_ext = strtolower(pathinfo($foto['name'], PATHINFO_EXTENSION));
+
+        if (in_array($file_ext, $allowed_extensions)) {
+            $foto_nama_baru = uniqid('lineup_', true) . '.' . $file_ext;
+            $target_file = $target_dir . $foto_nama_baru;
+
+            if (!move_uploaded_file($foto['tmp_name'], $target_file)) {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    if ($foto_nama_baru) {
+        $query = "UPDATE lineup SET band = '$band', foto = '$foto_nama_baru', waktu = '$waktu', stage = '$stage', ID_Event = '$ID_Event' WHERE id = '$ID_Lineup'";
+    } else {
+        $query = "UPDATE lineup SET band = '$band', waktu = '$waktu', stage = '$stage', ID_Event = '$ID_Event' WHERE id = '$ID_Lineup'";
+    }
+
+    mysqli_query($db, $query);
+    return mysqli_affected_rows($db);
+}
+
+
 // hapus data event
 function hapus_data_event($id)
 {
@@ -71,6 +112,15 @@ function hapus_data_regist($id)
 {
     global $db;
     $query = "DELETE FROM regist WHERE ID_Regist = '$id'";
+    mysqli_query($db, $query);
+
+    return mysqli_affected_rows($db);
+}
+
+function hapus_data_lineup($id)
+{
+    global $db;
+    $query = "DELETE FROM lineup WHERE id = '$id'";
     mysqli_query($db, $query);
 
     return mysqli_affected_rows($db);

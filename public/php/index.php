@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../../index.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,34 +75,36 @@
         }
 
         .hero-section {
-    background: url("../img/konser.jpeg") no-repeat center center/cover;
-    min-height: 90vh;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
+            background: url("../img/konser.jpeg") no-repeat center center/cover;
+            min-height: 90vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
 
-.hero-section::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* tingkat gelap, bisa disesuaikan */
-    z-index: 1;
-}
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            /* tingkat gelap, bisa disesuaikan */
+            z-index: 1;
+        }
 
-.hero-content {
-    position: relative;
-    z-index: 2; /* agar berada di atas overlay */
-    color: #fff;
-    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
-    padding: 4rem 2rem;
-    animation: fadeInDown 1.2s;
-}
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            /* agar berada di atas overlay */
+            color: #fff;
+            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+            padding: 4rem 2rem;
+            animation: fadeInDown 1.2s;
+        }
 
 
         .hero-content h1 {
@@ -258,10 +268,11 @@
                     <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="lineup.php">Line Up</a></li>
                     <li class="nav-item"><a class="nav-link" href="tiket_public.php">Tickets</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="form tiket anda.php">Tiket Saya</a></li>
                     <li class="nav-item"><a class="nav-link" href="kontak.php">Contact</a></li>
                 </ul>
-                <a href="../../admin/php/index.php" class="ms-lg-3">
-                    <button type="button" class="btn btn-primary btn-lg" name="login">Login</button>
+                <a href="logout user.php" class="ms-lg-3">
+                    <button type="button" class="btn btn-primary btn-lg" name="login">Logout</button>
                 </a>
             </div>
         </div>

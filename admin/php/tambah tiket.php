@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt->execute()) {
             $msg = '<div class="alert alert-success">Tiket berhasil ditambahkan!</div>';
-            echo "<script>setTimeout(function(){ window.location.href = 'manajemen_tiket.php'; }, 2000);</script>";
+            echo "<script>setTimeout(function(){ window.location.href = 'manajemen tiket.php'; }, 2000);</script>";
         } else {
             $msg = '<div class="alert alert-danger">Gagal menambah tiket: ' . $conn->error . '</div>';
         }

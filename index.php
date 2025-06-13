@@ -30,7 +30,7 @@ if (isset($_POST['login'])) {
 
         if ($password === $data['password']) {
             // Set session (tanpa menyimpan password)
-            $_SESSION['id'] = $data['id'];
+            $_SESSION['id'] = $data['ID_Regist'];
             $_SESSION['nama'] = $data['nama_lengkap'];
             $_SESSION['username'] = $data['username'];
             $_SESSION['email'] = $data['email'];
@@ -335,6 +335,7 @@ if (isset($_POST['login'])) {
                 <button type="submit" class="btn btn-primary w-100 mt-2" name="login">Login</button>
             </form>
             <a href="regist.php" class="register-link">Belum punya akun? <b>Daftar di sini</b></a>
+            <a href="admin/php/index.php" class="register-link">Login Sebagai Admin <b>Login di sini</b></a>
         </div>
     </div>
 

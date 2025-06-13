@@ -6,7 +6,9 @@ if (!isset($_SESSION['username'])) {
     exit;
 }
 require_once '../../admin/php/database.php';
-$query = "SELECT * FROM penjualan_tiket";
+$query = "SELECT penjualan_tiket.*, manajemen_event.Nama_Event 
+          FROM penjualan_tiket 
+          LEFT JOIN manajemen_event ON penjualan_tiket.ID_Event = manajemen_event.ID_Event";
 $result = mysqli_query($db, $query);
 $data_pembelian = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -78,7 +80,7 @@ $data_pembelian = mysqli_fetch_all($result, MYSQLI_ASSOC);
 <body>
     <div class="d-flex">
         <!-- Sidebar -->
-         <nav class="sidebar d-flex flex-column p-3 shadow">
+        <nav class="sidebar d-flex flex-column p-3 shadow">
             <a class="navbar-brand mb-4 fs-4 fw-bold text-white d-flex align-items-center" href="home.php">
                 <i class="bi bi-music-note-beamed me-2"></i> Lana Fest!
             </a>
@@ -147,6 +149,7 @@ $data_pembelian = mysqli_fetch_all($result, MYSQLI_ASSOC);
                                 <th style="width: 20%;">Nama</th>
                                 <th style="width: 15%;">Kontak</th>
                                 <th style="width: 15%;">Email</th>
+                                <th style="width: 15%;">Event</th>
                                 <th style="width: 15%;">Harga</th>
                                 <th style="width: 15%;">Total</th>
                                 <th style="width: 15%;">Kode Booking</th>
@@ -163,6 +166,7 @@ $data_pembelian = mysqli_fetch_all($result, MYSQLI_ASSOC);
                                         <td><?= $pembelian['nama_pemesan']; ?></td>
                                         <td><?= $pembelian['kontak_pemesan']; ?></td>
                                         <td><?= $pembelian['email']; ?></td>
+                                        <td><?= $pembelian['Nama_Event']; ?></td>
                                         <td><?= $pembelian['harga']; ?></td>
                                         <td><?= $pembelian['total_harga']; ?></td>
                                         <td><?= $pembelian['kode_booking']; ?></td>

@@ -2,6 +2,8 @@
 require_once '../../admin/php/database.php';
 $query = "SELECT * FROM manajemen_tiket";
 $result = mysqli_query($db, $query);
+$query_event = "SELECT * FROM manajemen_event";
+$result_event = mysqli_query($db, $query_event);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -93,6 +95,18 @@ $result = mysqli_query($db, $query);
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="kategori" class="form-label">Event</label>
+                                <select class="form-select" id="event" name="event" required>
+                                    <option value="">-- Pilih Kategori --</option>
+                                    <?php
+                                    $event = mysqli_fetch_all($result_event, MYSQLI_ASSOC);
+                                    foreach ($event as $t) {
+                                        echo "<option value='{$t['ID_Event']}' >{$t['Nama_Event']}</option>";
+                                    }
+                                    ?>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="metode" class="form-label">Metode Pembayaran</label>

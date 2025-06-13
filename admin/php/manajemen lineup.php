@@ -180,16 +180,16 @@ if (!isset($_SESSION['username'])) {
                                             <tr>
                                                 <td class="text-center"><?= $no++ ?></td>
                                                 <td><?= htmlspecialchars($pelanggan['band']); ?></td>
-                                                <td><img src="../../uploads/lineup/<?= $pelanggan['foto'] ?>" alt="" width="50%"></td>
+                                                <td><img src="../../uploads/lineup/<?= $pelanggan['foto'] ?>" alt="" width="30%"></td>
                                                 <td><?= htmlspecialchars($pelanggan['Nama_Event']); ?></td>
                                                 <td class="text-center"><?= $pelanggan['waktu']; ?></td>
                                                 <td><?= htmlspecialchars($pelanggan['stage']); ?></td>
                                                 <td>
-                                                    <a href="../edit/ubah_data_tiket.php?id=<?= urlencode($pelanggan['id']); ?>"
+                                                    <a href="../edit/ubah_data_lineup.php?id=<?= urlencode($pelanggan['id']); ?>"
                                                         class="btn btn-outline-success btn-sm me-1" title="Ubah Data">
                                                         <i class="bi bi-pencil-square"></i>
                                                     </a>
-                                                    <a href="../hapus/hapus_data_tiket.php?id=<?= urlencode($pelanggan['id']); ?>"
+                                                    <a href="../hapus/hapus_data_lineup.php?id=<?= urlencode($pelanggan['id']); ?>"
                                                         class="btn btn-outline-danger btn-sm"
                                                         onclick="return confirm('Yakin ingin menghapus data ini?');" title="Hapus Data">
                                                         <i class="bi bi-trash"></i>
