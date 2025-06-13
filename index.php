@@ -158,7 +158,7 @@ if (isset($_POST['login'])) {
         left: -60px;
         width: 130px;
         height: 130px;
-        background: linear-gradient(135deg, #AB7743 60%, #fff0 100%);
+        background: #6a0dad;
         border-radius: 50%;
         opacity: 0.13;
         z-index: 0;
@@ -166,13 +166,13 @@ if (isset($_POST['login'])) {
 
     .glass-card .card-title {
         font-weight: bold;
-        color: #AB7743;
+        color: #6a0dad;
         letter-spacing: 1px;
         font-size: 1.6rem;
     }
 
     .form-label {
-        color: #AB7743;
+        color: #6a0dad;
         font-weight: 500;
     }
 
@@ -182,12 +182,12 @@ if (isset($_POST['login'])) {
     }
 
     .form-control:focus {
-        border-color: #AB7743;
+        border-color: #6a0dad;
         box-shadow: 0 0 0 0.2rem rgba(171, 119, 67, 0.15);
     }
 
     .btn-primary {
-        background: linear-gradient(90deg, #AB7743 60%, #b1927c 100%);
+        background: #6a0dad;
         border: none;
         font-weight: bold;
         letter-spacing: 1px;
@@ -197,7 +197,7 @@ if (isset($_POST['login'])) {
     }
 
     .btn-primary:hover {
-        background: linear-gradient(90deg, #8c5d2c 60%, #b1927c 100%);
+        background: #6a0dad;
         transform: scale(1.04);
         box-shadow: 0 4px 16px #b1927c33;
     }
@@ -219,7 +219,7 @@ if (isset($_POST['login'])) {
         display: block;
         text-align: center;
         margin-top: 1.3rem;
-        color: #6F4E37;
+        color: #6a0dad;
         font-size: 1rem;
         font-weight: 500;
         letter-spacing: 0.5px;
@@ -228,13 +228,13 @@ if (isset($_POST['login'])) {
 
     .register-link:hover {
         text-decoration: underline;
-        color: #AB7743;
+        color: #6a0dad;
     }
 
     .divider {
         text-align: center;
         margin: 1.5rem 0 1rem 0;
-        color: #b1927c;
+        color: #6a0dad;
         font-size: 0.95rem;
         position: relative;
     }
@@ -293,7 +293,7 @@ if (isset($_POST['login'])) {
     }
 
     .forgot-link:hover {
-        color: #AB7743;
+        color: #6a0dad;
         text-decoration: underline;
     }
 
@@ -313,13 +313,13 @@ if (isset($_POST['login'])) {
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light mb-4" data-aos="fade-down">
         <div class="container">
-            <a class="navbar-brand" href="#">Dose Coffe</a>
+            <a class="navbar-brand" href="#">Lana Fest!</a>
         </div>
     </nav>
 
     <div class="container login-container mb-5">
         <div class="glass-card shadow" data-aos="zoom-in" data-aos-delay="200">
-            <img src="./img/logo.png" alt="Login Illustration" class="login-illustration" data-aos="fade-up" data-aos-delay="400">
+            <img src="./admin/img/logo.png" alt="Login Illustration" class="login-illustration" data-aos="fade-up" data-aos-delay="400">
             <h5 class="card-title text-center mb-4" data-aos="fade-up" data-aos-delay="500">Welcome Back!</h5>
             <form method="post" autocomplete="off" data-aos="fade-up" data-aos-delay="600">
                 <!-- ...form Anda tetap... -->

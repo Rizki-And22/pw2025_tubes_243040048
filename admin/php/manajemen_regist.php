@@ -1,16 +1,14 @@
-<?php
+<?php include 'database.php';
 session_start();
 
 if (!isset($_SESSION['username'])) {
     header("Location: index.php");
     exit;
 }
-require_once '../../admin/php/database.php';
-$query = "SELECT * FROM penjualan_tiket";
-$result = mysqli_query($db, $query);
-$data_pembelian = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
 ?>
+<?php $data_pelanggan = select("SELECT * FROM regist"); ?>
+
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -24,61 +22,12 @@ $data_pembelian = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <!-- plugin table -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.css">
-    <style>
-        body {
-            background-color: white;
-        }
-
-        .sidebar {
-            min-width: 220px;
-            background-color: #6a0dad;
-            color: #fff;
-            min-height: 100vh;
-        }
-
-        .sidebar .nav-link {
-            color: #e9ecef;
-            font-weight: 500;
-        }
-
-        .sidebar .nav-link.active,
-        .sidebar .nav-link:hover {
-            background: #ffffff;
-            color: #6a0dad;
-            ;
-        }
-
-
-
-        .navbar {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-            background-color: rgb(145, 143, 143);
-        }
-
-
-
-        .avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 8px;
-        }
-
-        .btn-custom {
-            min-width: 70px;
-        }
-
-        .table-striped>tbody>tr:nth-of-type(odd) {
-            background-color: #f3f6f9;
-        }
-    </style>
 </head>
 
 <body>
     <div class="d-flex">
         <!-- Sidebar -->
-         <nav class="sidebar d-flex flex-column p-3 shadow">
+        <nav class="sidebar d-flex flex-column p-3 shadow">
             <a class="navbar-brand mb-4 fs-4 fw-bold text-white d-flex align-items-center" href="home.php">
                 <i class="bi bi-music-note-beamed me-2"></i> Lana Fest!
             </a>
@@ -119,7 +68,7 @@ $data_pembelian = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 <div class="container-fluid justify-content-end">
                     <div class="dropdown">
                         <img src="https://ui-avatars.com/api/?name=<?= urlencode($_SESSION['username'][0] ?? 'U') ?>&background=198754&color=fff" class="avatar" alt="avatar">
-                        <span class="me-2 fw-semibold"><?= htmlspecialchars($_SESSION['username'] ?? 'User'); ?></span>
+                        <span class="me-2 fw-semibold"><?= htmlspecialchars($_SES['username'] ?? 'User'); ?></span>
                         <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             ▼
                         </button>
@@ -131,6 +80,7 @@ $data_pembelian = mysqli_fetch_all($result, MYSQLI_ASSOC);
                                     <button type="submit" name="logout" class="dropdown-item">Logout</button>
                                 </form>
                             </li>
+
                         </ul>
                     </div>
                 </div>
@@ -138,46 +88,57 @@ $data_pembelian = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
             <!-- Content -->
             <div class="container py-4">
-                <h3 class="mb-4 fw-bold">Manajemen Pembeli</h3>
-                <div class="table-responsive">
-                    <table class="table table-hover table-striped align-middle" id="table" class="table table-striped">
-                        <thead class="table-success">
-                            <tr>
-                                <th style="width: 5%;">No</th>
-                                <th style="width: 20%;">Nama</th>
-                                <th style="width: 15%;">Kontak</th>
-                                <th style="width: 15%;">Email</th>
-                                <th style="width: 15%;">Harga</th>
-                                <th style="width: 15%;">Total</th>
-                                <th style="width: 15%;">Kode Booking</th>
-                                <th style="width: 15%;">Metode Pembayaran</th>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="fw-bold mb-0">Manajemen Registrasi</h3>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (!empty($data_pembelian)): ?>
-                                <?php $no = 1; ?>
-                                <?php foreach ($data_pembelian as $pembelian): ?>
+                </div>
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped align-middle" id="table" class="table table-striped">
+                                <thead class="table-success text-center">
                                     <tr>
-                                        <td><?= $no++ ?></td>
-                                        <td><?= $pembelian['nama_pemesan']; ?></td>
-                                        <td><?= $pembelian['kontak_pemesan']; ?></td>
-                                        <td><?= $pembelian['email']; ?></td>
-                                        <td><?= $pembelian['harga']; ?></td>
-                                        <td><?= $pembelian['total_harga']; ?></td>
-                                        <td><?= $pembelian['kode_booking']; ?></td>
-                                        <td><?= $pembelian['metode_pembayaran']; ?></td>
+                                        <th style="width: 5%;">No</th>
+                                        <th style="width: 20%;">Email</th>
+                                        <th style="width: 15%;">Username</th>
+                                        <th style="width: 15%;">Pasword</th>
 
-
+                                        <th style="width: 15%;">Aksi</th>
                                     </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <tr>
-                                    <td colspan="6" class="text-center text-muted">Belum ada data pelanggan.</td>
-                                </tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
+                                </thead>
+                                <tbody>
+                                    <?php if (!empty($data_pelanggan)): ?>
+                                        <?php $no = 1; ?>
+                                        <?php foreach ($data_pelanggan as $pelanggan): ?>
+                                            <tr>
+                                                <td><?= $no++ ?></td>
+                                                <td><?= $pelanggan['email']; ?></td>
+                                                <td><?= $pelanggan['username']; ?></td>
+                                                <td><?= $pelanggan['password']; ?></td>
+
+
+                                                <td>
+                                                    <!-- <a href="../edit/ubah_data_regist.php?id=<?= urlencode($pelanggan['ID_Regist']); ?>"
+                                                        class="btn btn-outline-success btn-sm me-1" title="Ubah Data">
+                                                        <i class="bi bi-pencil-square"></i> Ubah
+                                                    </a> -->
+                                                    <a href="../hapus/hapus_data_regist.php?id=<?= urlencode($pelanggan['ID_Regist']); ?>"
+                                                        class="btn btn-outline-danger btn-sm"
+                                                        onclick="return confirm('Yakin ingin menghapus data ini?');" title="Hapus Data">
+                                                        <i class="bi bi-trash"></i> Hapus
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="6" class="text-center text-muted">Belum ada data pelanggan.</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

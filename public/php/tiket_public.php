@@ -5,6 +5,9 @@ require_once('../../admin/php/database.php');
 $data_tiket = select("SELECT * FROM manajemen_tiket");
 
 
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,11 +92,20 @@ $data_tiket = select("SELECT * FROM manajemen_tiket");
             --bs-table-accent-bg: #f3e6fa;
         }
 
+
+
         th,
         td {
             vertical-align: middle !important;
             padding-top: 1rem !important;
             padding-bottom: 1rem !important;
+            font-weight: bold;
+        }
+
+        p {
+            font-weight: normal;
+            color: #808080;
+            font-size: 15px;
         }
 
         @media (max-width: 576px) {
@@ -178,8 +190,8 @@ $data_tiket = select("SELECT * FROM manajemen_tiket");
                                         <th style="width:5%;">No</th>
                                         <th style="width:30%;">Nama Tiket</th>
                                         <th style="width:20%;">Harga</th>
-                                        <th style="width:15%;">Kuota</th>
-                                        <th style="width:30%;">Tanggal Berlaku</th>
+                                        <!-- <th style="width:15%;">Kuota</th>
+                                        <th style="width:30%;">Tanggal Berlaku</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -187,10 +199,15 @@ $data_tiket = select("SELECT * FROM manajemen_tiket");
 
                                         <tr>
                                             <td><?= $i + 1 ?></td>
-                                            <td><?= htmlspecialchars($ticket['Nama_Tiket']) ?></td>
+                                            <td><?= htmlspecialchars($ticket['Nama_Tiket']) ?>
+                                                <p>
+                                                <p><?= htmlspecialchars($ticket['deskripsi']); ?></p>
+                                                </p>
+
+                                            </td>
                                             <td>Rp <?= number_format($ticket['Harga'], 0, ',', '.') ?></td>
-                                            <td><?= htmlspecialchars($ticket['Kuota']) ?></td>
-                                            <td><?= htmlspecialchars($ticket['Tanggal_Berlaku']) ?></td>
+                                            <!-- <td><?= htmlspecialchars($ticket['Kuota']) ?></td>
+                                            <td><?= htmlspecialchars($ticket['Tanggal_Berlaku']) ?></td> -->
                                         </tr>
 
                                     <?php endforeach; ?>

@@ -97,8 +97,8 @@ if (!isset($_SESSION['username'])) {
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="manajemen lineup.php" class="nav-link active">
-                        <i class="bi bi-calendar-event-fill me-2"></i>Manajemen Lineup
+                    <a href="manajemen lineup.php" class="nav-link">
+                        <i class="bi bi-people-fill me-2"></i>Manajemen Lineup
                     </a>
                 </li>
                 <li>
@@ -110,6 +110,11 @@ if (!isset($_SESSION['username'])) {
                 <li>
                     <a href="manajemen pembelian.php" class="nav-link">
                         <i class="bi bi-bag-check-fill me-2"></i>Manajemen Pembeli
+                    </a>
+                </li>
+                <li>
+                    <a href="manajemen_regist.php" class="nav-link">
+                        <i class="bi bi-person-fill-add me-2"></i>Manajemen Registrasi
                     </a>
                 </li>
             </ul>

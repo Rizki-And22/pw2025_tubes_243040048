@@ -91,23 +91,37 @@ if (session_status() === PHP_SESSION_NONE) {
 
 
         <!-- Sidebar -->
-        <nav class="sidebar d-flex flex-column p-3">
-            <a class="navbar-brand mb-4 fs-4 fw-bold text-white" href="home.php">
-                <i class="bi bi-music-note-beamed"></i> Lana Fest!
+        <nav class="sidebar d-flex flex-column p-3 shadow">
+            <a class="navbar-brand mb-4 fs-4 fw-bold text-white d-flex align-items-center" href="home.php">
+                <i class="bi bi-music-note-beamed me-2"></i> Lana Fest!
             </a>
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="manajemen event.php" class="nav-link"><i class="bi bi-calendar-event-fill"></i>Manajemen Event</a>
+                    <a href="manajemen event.php" class="nav-link">
+                        <i class="bi bi-calendar-event-fill me-2"></i>Manajemen Event
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a href="manajemen lineup.php" class="nav-link">
-                        <i class="bi bi-calendar-event-fill me-2"></i>Manajemen Lineup
+                        <i class="bi bi-people-fill me-2"></i>Manajemen Lineup
                     </a>
                 </li>
-                <li><a href="manajemen tiket.php" class="nav-link"><i class="bi bi-ticket-perforated-fill"></i>Manajemen Tiket</a></li>
+                <li>
+                    <a href="manajemen tiket.php" class="nav-link">
+                        <i class="bi bi-ticket-perforated-fill me-2"></i>Manajemen Tiket
+                    </a>
+                </li>
 
-                <li><a href="manajemen pembelian.php" class="nav-link"><i class="bi bi-bag-check-fill me-2l"></i>Manajemen Pembeli</a></li>
-
+                <li>
+                    <a href="manajemen pembelian.php" class="nav-link">
+                        <i class="bi bi-bag-check-fill me-2"></i>Manajemen Pembeli
+                    </a>
+                </li>
+                <li>
+                    <a href="manajemen_regist.php" class="nav-link">
+                        <i class="bi bi-person-fill-add me-2"></i>Manajemen Registrasi
+                    </a>
+                </li>
             </ul>
         </nav>
 

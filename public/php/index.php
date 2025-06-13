@@ -67,23 +67,35 @@
         }
 
         .hero-section {
-            background: url("../img/konser.jpeg") no-repeat center center/cover;
-            filter: brightness(0.2);
-            min-height: 90vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    background: url("../img/konser.jpeg") no-repeat center center/cover;
+    min-height: 90vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            color: #fff;
-            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
-            padding: 4rem 2rem;
-            animation: fadeInDown 1.2s;
-        }
+.hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* tingkat gelap, bisa disesuaikan */
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2; /* agar berada di atas overlay */
+    color: #fff;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+    padding: 4rem 2rem;
+    animation: fadeInDown 1.2s;
+}
+
 
         .hero-content h1 {
             font-size: 4rem;

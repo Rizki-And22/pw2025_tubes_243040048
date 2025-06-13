@@ -8,6 +8,7 @@ if (!isset($_SESSION['username'])) {
 // Proses simpan tiket jika form disubmit
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama_tiket = $_POST['nama_tiket'] ?? '';
+    $deskripsi = $_POST['deskripsi'] ?? '';
     $harga = $_POST['harga'] ?? '';
     $stok = $_POST['stok'] ?? '';
     $kode = $_POST['kode'] ?? '';
@@ -15,15 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = $_POST['status'] ?? '';
 
     // Validasi sederhana
-    if ($nama_tiket && $harga && $stok && $kode && $tanggal && $status) {
+    if ($nama_tiket && $deskripsi && $harga && $stok && $kode && $tanggal && $status) {
         // Koneksi ke database (ganti sesuai konfigurasi Anda)
         $conn = new mysqli('localhost', 'root', '', 'web_tiket');
         if ($conn->connect_error) {
             die('<div class="alert alert-danger">Koneksi gagal: ' . $conn->connect_error . '</div>');
         }
 
-        $stmt = $conn->prepare("INSERT INTO manajemen_tiket (Nama_Tiket, Harga, Kuota, Kode_Promo, Tanggal_Berlaku, Status) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sdiiss", $nama_tiket, $harga, $stok, $kode, $tanggal, $status);
+        $stmt = $conn->prepare("INSERT INTO manajemen_tiket (Nama_Tiket, deskripsi, Harga, Kuota, Kode_Promo, Tanggal_Berlaku, Status) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssdiiss", $nama_tiket, $deskripsi, $harga, $stok, $kode, $tanggal, $status);
 
         if ($stmt->execute()) {
             $msg = '<div class="alert alert-success">Tiket berhasil ditambahkan!</div>';
@@ -62,6 +63,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="mb-3">
                                 <label class="form-label">Nama Tiket</label>
                                 <input type="text" name="nama_tiket" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Deskripsi</label>
+                                <input type="text" name="deskripsi" class="form-control" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Harga</label>

@@ -86,7 +86,7 @@ if (!isset($_SESSION['username'])) {
 <body>
     <div class="d-flex">
         <!-- Sidebar -->
-        <nav class="sidebar d-flex flex-column p-3 shadow">
+       <nav class="sidebar d-flex flex-column p-3 shadow">
             <a class="navbar-brand mb-4 fs-4 fw-bold text-white d-flex align-items-center" href="home.php">
                 <i class="bi bi-music-note-beamed me-2"></i> Lana Fest!
             </a>
@@ -98,11 +98,11 @@ if (!isset($_SESSION['username'])) {
                 </li>
                 <li class="nav-item">
                     <a href="manajemen lineup.php" class="nav-link">
-                        <i class="bi bi-calendar-event-fill me-2"></i>Manajemen Lineup
+                        <i class="bi bi-people-fill me-2"></i>Manajemen Lineup
                     </a>
                 </li>
                 <li>
-                    <a href="manajemen tiket.php" class="nav-link active">
+                    <a href="manajemen tiket.php" class="nav-link">
                         <i class="bi bi-ticket-perforated-fill me-2"></i>Manajemen Tiket
                     </a>
                 </li>
@@ -110,6 +110,11 @@ if (!isset($_SESSION['username'])) {
                 <li>
                     <a href="manajemen pembelian.php" class="nav-link">
                         <i class="bi bi-bag-check-fill me-2"></i>Manajemen Pembeli
+                    </a>
+                </li>
+                <li>
+                    <a href="manajemen_regist.php" class="nav-link">
+                        <i class="bi bi-person-fill-add me-2"></i>Manajemen Registrasi
                     </a>
                 </li>
             </ul>
@@ -161,6 +166,7 @@ if (!isset($_SESSION['username'])) {
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Tiket</th>
+                                        <th>Deskripsi</th>
                                         <th>Harga</th>
                                         <th>Kuota</th>
                                         <th>Kode Promo</th>
@@ -176,6 +182,7 @@ if (!isset($_SESSION['username'])) {
                                             <tr>
                                                 <td class="text-center"><?= $no++ ?></td>
                                                 <td><?= htmlspecialchars($pelanggan['Nama_Tiket']); ?></td>
+                                                <td><?= htmlspecialchars($pelanggan['deskripsi']); ?></td>
                                                 <td>Rp<?= number_format($pelanggan['Harga'], 0, ',', '.'); ?></td>
                                                 <td class="text-center"><?= $pelanggan['Kuota']; ?></td>
                                                 <td><?= htmlspecialchars($pelanggan['Kode_Promo']); ?></td>

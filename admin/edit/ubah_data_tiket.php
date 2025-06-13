@@ -149,6 +149,10 @@ if (isset($_POST['ubah'])) {
                                     <label for="Nama_Tiket" class="form-label">Nama Tiket</label>
                                     <input type="text" class="form-control" id="nama_Tiket" name="Nama_Tiket" placeholder="Masukkan Nama Tiket" value="<?= $manajemen_tiket['Nama_Tiket'] ?>" required>
                                 </div>
+                                 <div class="mb-3">
+                                    <label for="Nama_Tiket" class="form-label">Nama Tiket</label>
+                                    <input type="text" class="form-control" id="deskripsi" name="deskripsi" placeholder="Masukan Deskripsi" value="<?= $manajemen_tiket['deskripsi'] ?>" required>
+                                </div>
                                 <div class="mb-3">
                                     <label for="Harga" class="form-label">Harga</label>
                                     <input type="decimal" class="form-control" id="harga" name="Harga" value="<?= $manajemen_tiket['Harga'] ?>" required>
