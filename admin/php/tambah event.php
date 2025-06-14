@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("sssssi", $nama_event, $tanggal, $waktu, $lokasi, $status, $kapasitas);
         if ($stmt->execute()) {
             $msg = '<div class="alert alert-success">Event berhasil ditambahkan!</div>';
-            echo "<script>setTimeout(function(){ window.location.href = 'manajemen_event.php'; }, 2000);</script>";
+            echo "<script>setTimeout(function(){ window.location.href = 'manajemen event.php'; }, 2000);</script>";
         } else {
             $msg = '<div class="alert alert-danger">Gagal menambah event: ' . $conn->error . '</div>';
         }
